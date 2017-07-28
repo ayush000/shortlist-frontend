@@ -15,6 +15,9 @@ class App extends Component {
     }
   }
 
+  /**
+   * Fetch all jobs upon loading of component
+   */
   componentDidMount() {
     fetch(`${baseURL}/jobs`)
       .then(response => response.json())
@@ -25,6 +28,10 @@ class App extends Component {
 
   showModal = () => this.setState({ modalVisible: true })
 
+  /**
+   * Invoked when hyperlink to a job is clicked.
+   * Fetches data for that job Id from backend and then renders a modal
+   */
   handleJobClick = id => {
     fetch(`${baseURL}/jobs/${id}`)
       .then(response => response.json())
@@ -34,6 +41,9 @@ class App extends Component {
       })
   }
 
+  /**
+   * Table helper function. Formats title as hyperlink using multiple fields in a json
+   */
   formatTitle = (cell, row) => (
     <a href="#" onClick={() => this.handleJobClick(row.id)}>
       {`${row.companyName} - ${cell}(${row.experience} ${row.experience > 1 ? 'years' : 'year'})`}
